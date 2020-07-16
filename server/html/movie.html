@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Movie Details</title>
+	</head>
+	<body>
+		<div id="title"></div>
+		<div id="overview"></div>
+		<div id="id"></div>
+		<script>
+			(() => {
+				const id = window.location.pathname;
+				const regex = /[0-9]/gi;
+				const movieId = id.match(regex).join("");
+				const h1 = document.createElement("h1");
+				const p = document.createElement("p");
+				const valueId = document.createElement("p");
+
+				fetch(`/movie/details/${movieId}`)
+					.then(res => res.json())
+					.then(element => {
+						h1.innerHTML = element.title;
+						p.innerHTML = element.overview;
+						valueId.innerHTML = element.id;
+						document.getElementById("title").append(h1);
+						document.getElementById("overview").append(p);
+						document.getElementById("id").append(valueId);
+					});
+			})();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,8 @@
+const li = document.createElement("li")
+const a = document.createElement("a")
+li.append(a)
+a.innerText = title;
+a.href = url;
+
+
+ul.append(li);

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>MovieDB</title>
+	</head>
+	<body>
+		<form
+			id="form-element"
+			action="http://localhost:5000/movie/search"
+			method="GET"
+			class="search"
+		>
+			<input
+				type="text"
+				placeholder="enter your movie"
+				name="name"
+				id="inputValue"
+			/>
+			<button type="submit">Get Results</button>
+		</form>
+		<div id="output">
+			<ul id="movie"></ul>
+		</div>
+		<script>
+			const form = document.querySelector("#form-element");
+			form.addEventListener("submit", buttonfunction);
+			function buttonfunction(e) {
+				e.preventDefault();
+				//let formd = document.getElementById("form-element");
+				let name = document.getElementById("inputValue").value;
+				//const formdata = new FormData(formd);
+				fetch(`http://localhost:5000/movie/search?name=${name}`, {
+					method: "GET",
+				})
+					.then(res => res.json())
+					.then(res => {
+						res.forEach(element => {
+							const li = document.createElement("li");
+							const a = document.createElement("a");
+							const url = `http://localhost:5000/movie/specific/${element.id}`;
+							a.href = url;
+							a.innerText = element.title;
+							li.append(a);
+							document.getElementById("movie").append(li);
+						});
+					});
+			}
+		</script>
+	</body>
+</html>
+<!-- html`<ul>${resultant.map(movie => html`<li><a href="/movie/specific/${movie.id}">${movie.title}</a></li>`).join(``)}</ul> -->
