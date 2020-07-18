@@ -13,9 +13,9 @@ function App() {
   return (
     <Router>
       <Register path="/" />
-      <Login path="/login" error={{}} setError={{}} />
+      <Login path="/login" error={error} setError={setError} />
       <MovieDetails path="/moviedetail/:id" />
-      <Home path="/home" error={{}} setError={{}} />
+      <Home path="/home" error={error} setError={setError} />
     </Router>
   );
 }
