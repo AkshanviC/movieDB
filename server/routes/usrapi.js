@@ -12,15 +12,19 @@ router.post('/register', async (req, res) => {
     try {
         const userDetails = await user.save();
         res.json({ success: true });
+        console.log('success');
     }
     catch (err) {
         res.statusCode = 500;
         res.json({ message: err });
+        console.log('failure');
     }
 })
 
 router.post('/login', async (req, res) => {
     const token = uuidv4();
-    const user = User.findOneAndUpdate({ username=req.body.username, password=req.body.password }, { $post: { tokens: token } });
-    res.json(token);
+    await User.updateOne({ username: req.body.username, password: req.body.password }, { $push: { tokens: token } });
+    res.json({ token });
 })
+
+module.exports = router;
