@@ -12,7 +12,7 @@ function App() {
   const [error, setError] = useState();
   return (
     <Router>
-      <Register path="/" />
+      <Register path="/" error={error} setError={setError} />
       <Login path="/login" error={error} setError={setError} />
       <MovieDetails path="/moviedetail/:id" />
       <Home path="/home" error={error} setError={setError} />
