@@ -43,8 +43,20 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     const token = uuidv4();
-    await User.updateOne({ username: req.body.username, password: req.body.password }, { $push: { tokens: token } });
-    res.json({ token });
+    const value = await User.updateOne({ username: req.body.username, password: req.body.password }, { $push: { tokens: token } });
+    try {
+        if (value.nModified) {
+            res.json({ token });
+            console.log(value);
+        }
+        else {
+            res.json('')
+        }
+    }
+    catch (err) {
+        res.json('');
+        console.log(err);
+    }
 })
 
 router.post('/logout', async (req, res) => {

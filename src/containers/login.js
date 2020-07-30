@@ -7,6 +7,7 @@ import axios from "axios";
 
 const Login = (props) => {
     const [user, setUser] = useState({ username: '', password: '' });
+    const [err, setErr] = useState();
     const handlePost = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
     }
@@ -15,15 +16,22 @@ const Login = (props) => {
         axios.post("http://localhost:5000/index/login", user)
             .then(res => res.data)
             .then(res => {
-                localStorage.setItem('token', res.token);
-                props.setError("");
-                navigate('/home');
+                if (res) {
+                    localStorage.setItem('token', res.token);
+                    props.setError("");
+                    props.setErr("");
+                    navigate('/home');
+                }
+                else {
+                    setErr('password is incorrect');
+                }
             })
             .catch(err => console.log(err))
     }
     return (
         <LoginDiv>
             <Heading>MovieDB</Heading>
+            {(err) ? <p>{err}</p> : ""}
             <Form>
                 {(props.error) ? <p>Please Log in to Continue</p> : ""}
                 <Input type="text" placeholder="username" name="username" value={user.username} onChange={handlePost} ></Input>
