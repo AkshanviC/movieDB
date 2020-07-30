@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, navigate } from "@reach/router";
 import axios from "axios";
-import { Div, Form, Heading, Input, Button } from "../components/component"
+import { HomeDiv, MovieForm, Heading, Input, Button, LogoutDiv } from "../components/component";
+import Logout from "./logout";
 
 const Home = (props) => {
     const [search, setSearch] = useState("");
@@ -29,9 +30,12 @@ const Home = (props) => {
     };
 
     return (
-        <Div>
+        <HomeDiv>
+            <LogoutDiv>
+                <Logout />
+            </LogoutDiv>
             <Heading>MovieDB</Heading>
-            <Form>
+            <MovieForm>
                 <Input
                     type="text"
                     placeholder="enter your movie"
@@ -39,10 +43,11 @@ const Home = (props) => {
                     value={search}
                     onInput={handleSearch}
                 />
-                <Button type="submit" onClick={handleSubmit}>
-                    Get Results
+
+            </MovieForm>
+            <Button type="submit" onClick={handleSubmit}>
+                Get Results
                   </Button>
-            </Form>
             <div>
                 <ul id="movie">
                     {list.map(movie => (
@@ -52,7 +57,7 @@ const Home = (props) => {
                     ))}
                 </ul>
             </div>
-        </Div>
+        </HomeDiv>
     );
 };
 

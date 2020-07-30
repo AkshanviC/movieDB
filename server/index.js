@@ -6,8 +6,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const modelRoute = require('./routes/movie');
 const userRoute = require('./routes/usrapi');
+const ratingRoute = require('./routes/ratingapi');
 const cors = require('cors');
-const { request } = require('http');
 const User = require('./models/users');
 app.use(cors());
 app.use(bodyParser.json());
@@ -15,11 +15,13 @@ app.use(bodyParser.json());
 
 const verifyuser = async (req, res, next) => {
     // req.headers
-    console.log(req.headers);
+
     // User
     await User.findOne({ tokens: req.headers.authentication })
-        .then(promise => {
-            if (promise) {
+        .then(user => {
+            if (user) {
+                res.locals.user = user;
+
                 next();
             } else {
                 res.statusCode = 401;
@@ -30,6 +32,7 @@ const verifyuser = async (req, res, next) => {
 
 app.use('/index', userRoute);
 app.use('/movie', verifyuser, modelRoute);
+app.use('/rating', verifyuser, ratingRoute);
 
 mongoose.connect('mongodb+srv://iamakshan:thisisakshan@cluster0-r5l7k.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log('connected to db')).catch(err => {
     console.log(err);

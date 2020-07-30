@@ -19,7 +19,7 @@ const userSchema = mongoose.Schema({
     tokens: {
         type: [String],
         default: []
-    }
+    },
 });
 
 module.exports = mongoose.model('users', userSchema);

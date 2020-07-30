@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, navigate } from "@reach/router";
 import axios from "axios";
-import { Form, Heading, Input, P } from "../components/component";
+import { Form, Heading, Input, Button, RegisterDiv } from "../components/component";
 
 
 const Register = (props) => {
@@ -57,7 +57,7 @@ const Register = (props) => {
             }).catch(err => console.log(err));
     }
     return (
-        <div>
+        <RegisterDiv>
             <Heading>MovieDB</Heading>
             <Form>
                 {(props.error) ? <p>{props.error}</p> : ""}
@@ -65,10 +65,10 @@ const Register = (props) => {
                 <Input type="text" placeholder="username" value={username}
                     name="username" onChange={handleUsername} />
                 <Input type="password" placeholder="Create your password" value={password} name="password" onChange={handlePassword} />
-                <button type="submit" onClick={handleRegister}>Register</button>
             </Form>
-            <P>Already a new user? Click here to <Link to="/login">Login</Link></P>
-        </div>
+            <Button type="submit" onClick={handleRegister}>Register</Button>
+            <p>Already a new user? Click here to <Link to="/login">Login</Link></p>
+        </RegisterDiv>
     )
 }
 

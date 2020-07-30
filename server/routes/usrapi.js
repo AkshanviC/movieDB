@@ -47,4 +47,10 @@ router.post('/login', async (req, res) => {
     res.json({ token });
 })
 
+router.post('/logout', async (req, res) => {
+    await User.updateOne({ tokens: req.headers.authentication },
+        { $pull: { tokens: req.headers.authentication } });
+    res.json({ message: 'logged out' })
+})
+
 module.exports = router;
