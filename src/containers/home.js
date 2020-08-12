@@ -29,6 +29,11 @@ const Home = (props) => {
             });
     };
 
+    const handleDb = (e) => {
+        e.preventDefault();
+        navigate('/movieindb');
+    }
+
     return (
         <HomeDiv>
             <LogoutDiv>
@@ -48,6 +53,9 @@ const Home = (props) => {
             <Button type="submit" onClick={handleSubmit}>
                 Get Results
                   </Button>
+            <Button type="submit" onClick={handleDb}>
+                Movie in Db
+            </Button>
             <div>
                 <ul id="movie">
                     {list.map(movie => (

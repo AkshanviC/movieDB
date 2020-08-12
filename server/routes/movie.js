@@ -72,10 +72,16 @@ router.get('/specific/:id', async (req, res) => {
     }
 });
 
-router.get('/movieindb', async (req, res) => {
+router.get('/movieindb/:pagenumber', async (req, res) => {
     try {
-        const display = await Movies.find();
-        res.json(display);
+        const currentpage = req.params.pagenumber;
+        let skipValue = 0;
+        if (currentpage > 1) {
+            skipValue = (currentpage - 1) * 10;
+        }
+        const display = await Movies.find().limit(10).skip(skipValue);
+        const count = await Movies.countDocuments();
+        res.json({ movies: display, value: count });
     } catch{
         res.json({ message: err });
     }

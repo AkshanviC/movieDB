@@ -19,7 +19,7 @@ const Login = (props) => {
                 if (res) {
                     localStorage.setItem('token', res.token);
                     props.setError("");
-                    props.setErr("");
+                    setErr("");
                     navigate('/home');
                 }
                 else {

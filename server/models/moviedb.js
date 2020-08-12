@@ -6,7 +6,7 @@ const moviedbSchema = mongoose.Schema({
         required: true,
         unique: true
     },
-    name: String,
+    title: String,
     data: mongoose.SchemaTypes.Mixed,
 });
 
