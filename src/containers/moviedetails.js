@@ -6,6 +6,8 @@ import Logout from "./logout";
 const MovieDetails = (props) => {
     const [details, setDetails] = useState({});
     const [ratingandStatus, setRatingandStatus] = useState({ movierating: '', watchstatus: "" });
+    const [averageRating, setAverageRating] = useState();
+    const [statusCount, setStatusCount] = useState();
 
     const handleReturn = e => {
         window.location.href = "http://localhost:3000/home";
@@ -32,11 +34,25 @@ const MovieDetails = (props) => {
         })
             .then(res => res.data)
             .then(element => {
-                setRatingandStatus(element);
-                console.log(props.id);
+                console.log(element);
+                setRatingandStatus(element.rating);
+                setStatusCount(element.status);
+                setAverageRating(element.avrg);
             })
             .catch(err => console.log(err))
     }, []);
+
+    // useEffect(() => {
+    //     axios({
+    //         method: 'GET',
+    //         url: `http://localhost:5000/rating/averagerating/${props.id}`,
+    //         headers: { Authentication: localStorage.getItem('token') }
+    //     })
+    //         .then(res => res.data)
+    //         .then(element => {
+    //             setAverageRating(element);
+    //         }).catch(err => console.log(err));
+    // }, [])
 
     const handleChange = name => (e) => {
         const state = { ...ratingandStatus, [name]: e.target.value };
@@ -81,6 +97,7 @@ const MovieDetails = (props) => {
             <Rating>
                 <RatingForm>
                     <Select value={ratingandStatus.movierating} onChange={handleChange("movierating")}>
+                        <option>rating</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -96,6 +113,7 @@ const MovieDetails = (props) => {
                 </RatingForm>
                 <StatusForm>
                     <Select value={ratingandStatus.watchstatus} onChange={handleChange("watchstatus")}>
+                        <option>watchstatus</option>
                         <option value="WATCHED">Watched</option>
                         <option value="PLANNED_TO_WATCH">planned to watch</option>
                         <option value="IN_PROGRESS">In progress</option>
@@ -103,6 +121,14 @@ const MovieDetails = (props) => {
                     {(ratingandStatus.watchstatus) ? <p>Your Watch Satus: {ratingandStatus.watchstatus}</p> : ""}
                 </StatusForm>
             </Rating>
+            <div>
+                {(averageRating) ? <p>average rating:{averageRating.toFixed(1)}</p> : ""}
+                {(statusCount) ? <div>
+                    <p>No. of Peoples watched: {statusCount.Planned}</p>
+                    <p>No. of peoples Planned to watch: {statusCount.Watched}</p>
+                    <p>No. of Peoples In Progress: {statusCount.Inprogress}</p>
+                </div> : ""}
+            </div>
             <div id="image">
                 <Image src={details.image} />
             </div>

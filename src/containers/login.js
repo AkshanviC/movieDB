@@ -24,6 +24,7 @@ const Login = (props) => {
                 }
                 else {
                     setErr('password is incorrect');
+                    props.setError("");
                 }
             })
             .catch(err => console.log(err))
@@ -31,13 +32,13 @@ const Login = (props) => {
     return (
         <LoginDiv>
             <Heading>MovieDB</Heading>
-            {(err) ? <p>{err}</p> : ""}
             <Form>
-                {(props.error) ? <p>Please Log in to Continue</p> : ""}
                 <Input type="text" placeholder="username" name="username" value={user.username} onChange={handlePost} ></Input>
                 <Input type="password" placeholder="password" name="password" value={user.password} onChange={handlePost}></Input>
                 <Button type="submit" onClick={handleLogin}>Log In</Button>
             </Form>
+            {(props.error) ? <p>Please Log in to Continue</p> : ""}
+            {(err) ? <p>{err}</p> : ""}
         </LoginDiv>
     )
 }

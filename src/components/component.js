@@ -43,7 +43,7 @@ export const Heading = styled.h1`
   color: white;
 `;
 export const Image = styled.img`
-  max-widht:200px;
+  max-width:200px;
   max-height:400px;
 `;
 export const Description = styled.div`
@@ -126,6 +126,10 @@ export const Rating = styled.div`
   flex-direction:row;
   min-height:100px;
   width:90%;
-  justify content:space-between;
+  justify-content:space-between;
   align-items:center;
  `;
+
+export const Note = styled.div`
+  height:30px;
+`

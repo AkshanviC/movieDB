@@ -2,12 +2,10 @@ const mongoose = require('mongoose');
 
 const ratingSchema = mongoose.Schema({
     watchstatus: {
-        type: String,
-        enum: ["WATCHED", "PLANNED_TO_WATCH", "IN_PROGRESS"]
+        type: String
     },
     movierating: {
-        type: String,
-        enum: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+        type: Number
     },
     userid: {
         type: mongoose.Types.ObjectId,
@@ -19,4 +17,4 @@ const ratingSchema = mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('rating', ratingSchema);
+module.exports = mongoose.model('ratingNew', ratingSchema);

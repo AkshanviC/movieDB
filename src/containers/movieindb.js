@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from "styled-components";
+import { navigate, Link } from '@reach/router';
 
 const UL = styled.ul`
     display: flex;
@@ -56,16 +57,16 @@ const MovieinDB = () => {
 
     return (
         <div>
-            {post.map(post => (
-                <li key={post.id}>{post.data.title}</li>
-            ))}
-            <nav aria-label="Page navigation example">
-                <UL class="pagination">
-                    {pageNumbers.map(page => (
-                        <li key={page} class="page-item"><a class="page-link" onClick={() => paginate(page)} href="#">{page}</a></li>
-                    ))}
-                </UL>
-            </nav>
+            <ul>
+                {post.map(post => (
+                    <li key={post.id}><Link to={`/moviedetail/${post.id}`}>{post.data.title}</Link></li>
+                ))}
+            </ul>
+            <UL>
+                {pageNumbers.map(page => (
+                    <li key={page} ><a onClick={() => paginate(page)} href="#">{page}</a></li>
+                ))}
+            </UL>
         </div>
     );
 

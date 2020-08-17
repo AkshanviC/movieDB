@@ -12,6 +12,9 @@ const User = require('./models/users');
 app.use(cors());
 app.use(bodyParser.json());
 
+mongoose.connect('mongodb+srv://iamakshan:thisisakshan@cluster0-r5l7k.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log('connected to db')).catch(err => {
+    console.log(err);
+});
 
 const verifyuser = async (req, res, next) => {
     // req.headers
@@ -33,10 +36,6 @@ const verifyuser = async (req, res, next) => {
 app.use('/index', userRoute);
 app.use('/movie', verifyuser, modelRoute);
 app.use('/rating', verifyuser, ratingRoute);
-
-mongoose.connect('mongodb+srv://iamakshan:thisisakshan@cluster0-r5l7k.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log('connected to db')).catch(err => {
-    console.log(err);
-});
 
 app.get('/', (req, res) => {
     res.send('we are on home');
